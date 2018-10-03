@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+"beautifulsoup4" = "*"
+lxml = "*"
+pyaml = "*"
+"m3u8" = "*"
+fpdf = "*"
+pillow = "*"
+bsms = {editable = true, path = "."}
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
