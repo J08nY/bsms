@@ -25,5 +25,5 @@ setup(
         },
         description="Python BrightSpace & MediaSite content downloader",
         long_description=open(
-                os.path.join(os.path.dirname(__file__), "README")).read()
+                os.path.join(os.path.dirname(__file__), "README.md")).read()
 )
