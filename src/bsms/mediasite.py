@@ -234,6 +234,7 @@ def download_lecture(lecture_url, output_name, session):
     vprint("[*] Got {} streams.".format(str(len(streams))))
     for i, stream in enumerate(streams):
         stream_data = get_stream_location(stream)
+        print("[*] Stream: {}".format(stream_data[0]))
         if stream_data is None:
             print("[!] Cannot find stream to download!")
             return False
