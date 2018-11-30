@@ -38,19 +38,11 @@ from os.path import split, exists
 from urllib.parse import urljoin, urlparse
 
 import utils
-from utils import vprint, get_user_agent, get_url_root, download_segments
+from utils import vprint, get_user_agent, get_url_root, download_segments, create_session
 
 
 def unix_time():
     return int(round(time.time() * 1000))
-
-
-def create_session(initial_cookies):
-    s = requests.Session()
-    cookie = cookies.SimpleCookie()
-    cookie.load(initial_cookies)
-    s.cookies.update(cookie)
-    return s
 
 
 def download_lecture(lecture_url, output_name, session):
@@ -131,6 +123,8 @@ def download_lecture(lecture_url, output_name, session):
 
     if config.dry_run:
         return True
+
+    output_name = output_name + ".ts"
 
     if exists(output_name):
         print(

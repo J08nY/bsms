@@ -51,3 +51,12 @@ def download_segments(session, urls, out, max_workers=4):
         futures = [loop.run_in_executor(executor, session.get, url)
                    for url in urls]
         loop.run_until_complete(process_segments(futures, out))
+
+
+def create_session(initial_cookies=None):
+    s = requests.Session()
+    if initial_cookies is not None:
+        cookie = cookies.SimpleCookie()
+        cookie.load(initial_cookies)
+        s.cookies.update(cookie)
+    return s

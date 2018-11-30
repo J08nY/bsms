@@ -37,7 +37,7 @@ from os.path import join, exists
 from urllib.parse import urlparse, parse_qs
 
 import utils
-from utils import vprint, get_user_agent, get_url_root, download_segments
+from utils import vprint, get_user_agent, get_url_root, download_segments, create_session
 
 
 def get_player_options(vid_url, session):
@@ -319,13 +319,20 @@ def main():
                         help="Do not download anything.")
     parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                         help="Enable verbose output.")
+    parser.add_argument("-a", "--auth", dest="auth", action="store_true",
+                        help="Enable authentication, will ask for cookie jar.")
     parser.add_argument("output", type=str,
                         help="Output name, a partial filename in case of a single lecture download, "
                              "or a directory in case of a course download.")
     config = parser.parse_args()
     utils.config = config
 
-    with requests.Session() as session:
+    if config.auth:
+        cookie_string = input("Gimme the session cookies:")
+    else:
+        cookie_string = None
+
+    with create_session(cookie_string) as session:
         session.headers.update(get_user_agent())
 
         if config.lecture_url is not None:
