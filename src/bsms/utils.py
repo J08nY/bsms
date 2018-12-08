@@ -1,6 +1,8 @@
 import asyncio
 from concurrent.futures.thread import ThreadPoolExecutor
 from random import choice
+import requests
+from http import cookies
 from urllib.parse import urlparse, urlunparse
 
 config = None
@@ -51,6 +53,7 @@ def download_segments(session, urls, out, max_workers=4):
         futures = [loop.run_in_executor(executor, session.get, url)
                    for url in urls]
         loop.run_until_complete(process_segments(futures, out))
+        print()
 
 
 def create_session(initial_cookies=None):
