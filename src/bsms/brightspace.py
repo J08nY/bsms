@@ -34,7 +34,7 @@ from bs4 import BeautifulSoup
 from functools import reduce
 from http import cookies
 from os import makedirs
-from os.path import split, exists
+from os.path import split, exists, join
 from urllib.parse import urljoin, urlparse
 
 import utils
@@ -191,7 +191,7 @@ def download_course(course_url, output_name, session):
                                                         output_name))
     for item in lectures:
         lecture_url = urljoin(full_root, item["href"])
-        if not download_lecture(lecture_url, output_name + "/" + item.string,
+        if not download_lecture(lecture_url, join(output_name, item.string.replace("/", "-")),
                                 session):
             return False
     return True
